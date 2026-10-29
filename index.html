@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="kk">
+    <head>
+        <!-- Шрифт Lora (кириллица + казахские буквы) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&display=swap&subset=cyrillic,cyrillic-ext"
+            rel="stylesheet"
+        />
+
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        />
+
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta property="og:title" content="Айланың 1 жас тұсаукесер тойына шақыру!" />
+        <meta property="og:description" content="06.01.2027" />
+        <meta
+            property="og:image"
+            content="https://raw.githubusercontent.com/Invitation-kz/Ayla-06.01.2027/main/photo.jpg"
+        />
+
+        <title>Айланың 1 жас тұсаукесер тойына шақыру!</title>
+
+        <style>
+            :root {
+                --font: "Lora", Georgia, "Times New Roman", serif;
+                --accent: #fcabc2;
+                --accent-dark: #fcabc2;
+                --ink: #2b1a25;
+            }
+
+            /* Единый шрифт для всей страницы */
+            html,
+            body,
+            button,
+            input,
+            textarea,
+            label,
+            span,
+            h2 {
+                font-family: var(--font);
+            }
+
+            body {
+                margin: 0;
+                background-color: #ffffff;
+                color: var(--ink);
+            }
+
+            /* Единый акцентный цвет для всех кнопок */
+            button,
+            input[type="button"],
+            input[type="submit"],
+            input[type="reset"] {
+                background-color: var(--accent);
+                border-color: var(--accent);
+            }
+
+            /* Видео идут вплотную, без белых промежутков */
+            video {
+                display: block;
+                width: 100%;
+                height: auto;
+                margin: 0 !important;
+                vertical-align: top;
+            }
+
+            /* У ссылки вокруг video4 не должно появляться лишнее место строки */
+            a:has(video) {
+                display: block;
+                line-height: 0;
+            }
+
+            .element-animation {
+                top: 0px;
+                opacity: 0;
+                position: relative;
+            }
+            .element-animation.element-show {
+                position: relative;
+                top: 0;
+                opacity: 1;
+                transition-duration: 1.4s;
+            }
+
+            /* ===== Форма ответа ===== */
+            #form {
+                display: block;
+                width: 100%;
+                max-width: 380px;
+                margin: 0 auto;
+                padding: 0 24px;
+                box-sizing: border-box;
+                text-align: left;
+            }
+
+            .form-inner {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .radio-group {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                margin: 0 0 6px;
+            }
+
+            .radio-option {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                padding: 13px 18px;
+                background: #ffffff;
+                border: 1px solid rgba(252, 171, 194, 0.45);
+                border-radius: 14px;
+                cursor: pointer;
+                transition:
+                    background-color 0.2s ease,
+                    border-color 0.2s ease,
+                    box-shadow 0.2s ease;
+            }
+            .radio-option:hover {
+                border-color: var(--accent);
+            }
+            .radio-option:has(input:checked) {
+                background: rgba(252, 171, 194, 0.18);
+                border-color: var(--accent);
+                box-shadow: 0 0 0 1px var(--accent);
+            }
+            .radio-option:has(input:focus-visible) {
+                outline: 2px solid var(--accent);
+                outline-offset: 2px;
+            }
+            .radio-option input[type="radio"] {
+                flex: none;
+                width: 20px;
+                height: 20px;
+                margin: 0;
+                accent-color: var(--accent);
+                cursor: pointer;
+            }
+            .radio-option label {
+                flex: 1;
+                margin: 0;
+                padding: 0;
+                font-size: 18px;
+                line-height: 1.3;
+                color: var(--ink);
+                text-transform: none;
+                letter-spacing: 0.01em;
+                cursor: pointer;
+            }
+
+            .form-inner textarea,
+            .form-inner input[type="number"] {
+                display: block;
+                width: 100%;
+                height: 52px;
+                padding: 13px 18px;
+                margin: 0;
+                box-sizing: border-box;
+                resize: none;
+                font-size: 18px;
+                line-height: 1.3;
+                color: var(--ink);
+                background-color: #ffffff;
+                border: 1px solid rgba(252, 171, 194, 0.6);
+                border-radius: 14px;
+                letter-spacing: 0.01em;
+            }
+            .form-inner textarea::placeholder,
+            .form-inner input[type="number"]::placeholder {
+                color: rgba(43, 26, 37, 0.5);
+            }
+            .form-inner textarea:focus,
+            .form-inner input[type="number"]:focus {
+                outline: none;
+                border-color: var(--accent);
+                box-shadow: 0 0 0 2px rgba(252, 171, 194, 0.45);
+            }
+
+            /* Поле «Қонақ саны» */
+            #guestsWrap[hidden] {
+                display: none;
+            }
+
+            .form-inner input[type="submit"] {
+                display: block;
+                width: 100%;
+                height: 52px;
+                margin: 4px 0 0;
+                padding: 0 20px;
+                font-size: 18px;
+                font-weight: 500;
+                letter-spacing: 0.06em;
+                color: var(--ink);
+                background: var(--accent);
+                border: 1px solid var(--accent);
+                border-radius: 14px;
+                box-shadow: 0 8px 20px rgba(252, 171, 194, 0.35);
+                cursor: pointer;
+                transition:
+                    transform 0.2s ease,
+                    box-shadow 0.2s ease,
+                    opacity 0.2s ease;
+            }
+            .form-inner input[type="submit"]:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 24px rgba(252, 171, 194, 0.45);
+            }
+            .form-inner input[type="submit"]:active {
+                transform: scale(0.98);
+            }
+            .form-inner input[type="submit"]:focus-visible {
+                outline: 2px solid var(--ink);
+                outline-offset: 3px;
+            }
+            .form-inner input[type="submit"]:disabled {
+                opacity: 0.6;
+                cursor: default;
+                transform: none;
+            }
+
+            .form-status {
+                min-height: 26px;
+                margin: 2px 0 0;
+                text-align: center;
+                font-size: 18px;
+                color: var(--ink);
+                opacity: 0;
+                transform: translateY(6px);
+                transition:
+                    opacity 0.3s ease,
+                    transform 0.3s ease;
+            }
+            .form-status.show {
+                opacity: 1;
+                transform: none;
+            }
+
+            .fade-in {
+                opacity: 0;
+                transform: translateY(20px);
+                transition:
+                    opacity 1s ease-out,
+                    transform 1s ease-out;
+            }
+            .fade-in.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* ===== Модальное окно ===== */
+            .modal {
+                display: block; /* Модальное окно отображается сразу */
+                position: fixed;
+                z-index: 9999; /* Поверх всех элементов */
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow-y: auto;
+                background-color: rgba(0, 0, 0, 0.8);
+            }
+            .modal-content {
+                background-color: #ffffff;
+                margin: 12vh auto;
+                padding: 20px;
+                border: 1px solid #fcabc2;
+                border-radius: 18px;
+                width: 80%;
+                max-width: 420px;
+                text-align: center;
+            }
+            .modal-content video {
+                border-radius: 12px;
+            }
+
+            /* Кнопка «Шақыртуды ашу» */
+            #playMusic {
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 18px;
+                padding: 14px 38px;
+                font-family: var(--font);
+                font-size: 18px;
+                font-weight: 500;
+                letter-spacing: 0.06em;
+                color: var(--ink);
+                background: var(--accent);
+                border: 1px solid var(--accent);
+                border-radius: 999px;
+                box-shadow:
+                    0 0 0 4px rgba(252, 171, 194, 0.25),
+                    0 8px 20px rgba(252, 171, 194, 0.4);
+                cursor: pointer;
+                transition:
+                    transform 0.25s ease,
+                    box-shadow 0.25s ease;
+                animation: invitePulse 2.4s ease-in-out infinite;
+            }
+            #playMusic::before {
+                content: "♪";
+                font-size: 20px;
+            }
+            #playMusic:hover {
+                transform: translateY(-2px);
+                box-shadow:
+                    0 0 0 5px rgba(252, 171, 194, 0.35),
+                    0 12px 26px rgba(252, 171, 194, 0.5);
+            }
+            #playMusic:active {
+                transform: translateY(0) scale(0.97);
+            }
+            #playMusic:focus-visible {
+                outline: 2px solid var(--ink);
+                outline-offset: 4px;
+            }
+            @keyframes invitePulse {
+                0%,
+                100% {
+                    box-shadow:
+                        0 0 0 4px rgba(252, 171, 194, 0.25),
+                        0 8px 20px rgba(252, 171, 194, 0.4);
+                }
+                50% {
+                    box-shadow:
+                        0 0 0 10px rgba(252, 171, 194, 0),
+                        0 8px 20px rgba(252, 171, 194, 0.4);
+                }
+            }
+            @media (prefers-reduced-motion: reduce) {
+                #playMusic {
+                    animation: none;
+                }
+                .element-animation.element-show,
+                .fade-in {
+                    transition: none;
+                }
+            }
+
+            /* Отключение скроллинга страницы, пока открыто окно */
+            body.modal-open {
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body class="modal-open">
+        <div class="fade-in" id="content">
+            <video
+                src="video1.mp4"
+                autoplay
+                muted
+                playsinline
+                preload="auto"
+                data-auto
+                aria-label="Айла, 1 жас"
+            ></video>
+        </div>
+
+        <center>
+            <div class="element-animation">
+                <video src="video2.mp4" muted playsinline preload="metadata" data-auto></video>
+            </div>
+        </center>
+
+        <video src="video3.mp4" muted playsinline preload="metadata" data-auto></video>
+
+        <center>
+            <div class="element-animation">
+                <a
+                    href="https://2gis.kz/astana/geo/70000001047854220"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Nur Hall, Жанкент 3, Астана — 2GIS"
+                >
+                    <video
+                        src="video4.mp4"
+                        muted
+                        playsinline
+                        preload="metadata"
+                        data-auto
+                    ></video>
+                </a>
+            </div>
+        </center>
+
+        <center>
+            <div class="element-animation">
+                <video
+                    src="video5.mp4"
+                    muted
+                    playsinline
+                    preload="metadata"
+                    data-auto
+                ></video>
+            </div>
+        </center>
+
+        <center style="margin-top: 0px">
+            <form class="transparent" method="post" id="form">
+                <div class="form-inner">
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="question1_yes" name="name" value="Иә барамын" required />
+                            <label for="question1_yes">Иә барамын</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="question1_no" name="name" value="Бара алмаймын" required />
+                            <label for="question1_no">Бара алмаймын</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="question1_maybe" name="name" value="Әзірге белгісіз" required />
+                            <label for="question1_maybe">Әзірге белгісіз</label>
+                        </div>
+                    </div>
+                    <textarea
+                        required
+                        name="message"
+                        maxlength="100"
+                        id="message"
+                        cols="30"
+                        rows="1"
+                        placeholder="Есіміңізді жазыңыз"
+                    ></textarea>
+                    <div id="guestsWrap" hidden>
+                        <input
+                            type="number"
+                            name="guests"
+                            id="guests"
+                            min="1"
+                            max="20"
+                            step="1"
+                            inputmode="numeric"
+                            placeholder="Қонақ саны (өзіңізбен бірге)"
+                            aria-label="Қонақ саны"
+                            disabled
+                        />
+                    </div>
+                    <input type="submit" value="Жіберу" />
+                    <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+                </div>
+            </form>
+        </center>
+
+        <center>
+            <div class="element-animation">
+                <video
+                    src="video6.mp4"
+                    muted
+                    playsinline
+                    preload="metadata"
+                    data-auto
+                ></video>
+            </div>
+        </center>
+
+        <!-- Модальное окно -->
+        <div id="musicModal" class="modal">
+            <div class="modal-content">
+                <video id="modalVideo" src="video.mp4" autoplay muted playsinline preload="auto"></video>
+                <button id="playMusic" type="button">Шақыртуды ашу</button>
+            </div>
+        </div>
+
+        <audio id="backgroundMusic" loop>
+            <source src="music.mp3" type="audio/mpeg" />
+            Ваш браузер не поддерживает воспроизведение музыки.
+        </audio>
+
+        <script>
+            // Получаем модальное окно, кнопку и аудио
+            var modal = document.getElementById("musicModal");
+            var playButton = document.getElementById("playMusic");
+            var audio = document.getElementById("backgroundMusic");
+            var modalVideo = document.getElementById("modalVideo");
+
+            // При нажатии на кнопку включаем музыку и закрываем модальное окно
+            playButton.onclick = function () {
+                audio.play();
+                closeModal();
+            };
+
+            // Функция для закрытия модального окна и разблокировки сайта
+            function closeModal() {
+                modalVideo.pause();
+                modal.style.display = "none"; // Скрываем модальное окно
+                document.body.classList.remove("modal-open"); // Включаем прокрутку
+            }
+        </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("visible");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                });
+
+                var elements = document.querySelectorAll(".fade-in");
+                elements.forEach(function (element) {
+                    observer.observe(element);
+                });
+
+                // Каждый ролик запускается при первом появлении на экране.
+                // После ухода с экрана он продолжает играть, а в конце остаётся на последнем кадре.
+                // Повторный запуск возможен только после перезагрузки страницы.
+                var videoObserver = new IntersectionObserver(
+                    function (entries) {
+                        entries.forEach(function (entry) {
+                            var video = entry.target;
+
+                            if (entry.isIntersecting && video.dataset.started !== "true") {
+                                video.dataset.started = "true";
+                                video.play().catch(function () {
+                                    // Не перезапускаем автоматически: пользователь может обновить страницу.
+                                });
+                            }
+                        });
+                    },
+                    { threshold: 0.2 },
+                );
+                document.querySelectorAll("video[data-auto]").forEach(function (v) {
+                    videoObserver.observe(v);
+                });
+            });
+        </script>
+
+        <script>
+            // Сюда вставьте ссылку веб-приложения Apps Script (заканчивается на /exec)
+            const URL_APP =
+                "https://script.google.com/macros/s/AKfycbxBUrIjLUsULg7MK1b0hsm2gYWj-QJ68xpEq-l5cezyF3gmPX8deyufjYThpmqjryyN/exec";
+
+            const form = document.querySelector("#form");
+            const statusEl = document.querySelector("#formStatus");
+            const guestsWrap = document.querySelector("#guestsWrap");
+            const guestsInput = document.querySelector("#guests");
+            let statusTimer;
+
+            form.action = URL_APP;
+
+            // Поле «Қонақ саны» показываем, только если гость идёт или ещё не решил
+            function toggleGuests() {
+                const checked = form.querySelector("[name=name]:checked");
+                const show = !!checked && checked.value !== "Бара алмаймын";
+                guestsWrap.hidden = !show;
+                guestsInput.disabled = !show;
+                guestsInput.required = show;
+                if (!show) guestsInput.value = "";
+            }
+            form.querySelectorAll("[name=name]").forEach(r => r.addEventListener("change", toggleGuests));
+
+            // Мгновенный ответ гостю
+            function showThanks() {
+                statusEl.textContent = "Жауабыңызға рахмет!";
+                statusEl.classList.add("show");
+                clearTimeout(statusTimer);
+                statusTimer = setTimeout(() => statusEl.classList.remove("show"), 5000);
+            }
+
+            // Отправка в таблицу в фоне (гость её не ждёт), до 3 попыток при сбое сети
+            function sendInBackground(body, attempt = 1) {
+                if (!URL_APP) {
+                    console.warn("URL_APP пустой: вставьте ссылку Apps Script (/exec)");
+                    return;
+                }
+                fetch(URL_APP, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+                    mode: "no-cors",
+                    body: body,
+                    keepalive: true, // запрос дойдёт, даже если гость закроет страницу
+                }).catch(err => {
+                    console.error("Error:", err);
+                    if (attempt < 3) {
+                        setTimeout(() => sendInBackground(body, attempt + 1), 2000 * attempt);
+                    }
+                });
+            }
+
+            form.addEventListener("submit", ev => {
+                ev.preventDefault();
+
+                const checked = form.querySelector("[name=name]:checked");
+                const name = checked ? checked.value : "";
+                const message = form.querySelector("[name=message]").value.trim();
+                const declined = name === "Бара алмаймын";
+                const guests = declined ? "0" : String(parseInt(guestsInput.value, 10) || "");
+
+                if (!name || !message) {
+                    alert("Жауабыңызды таңдап, есіміңізді жазыңыз");
+                    return;
+                }
+                if (!declined && !guests) {
+                    alert("Қонақ санын жазыңыз");
+                    return;
+                }
+
+                const body = new URLSearchParams({ name, message, guests }).toString();
+
+                form.reset();
+                toggleGuests();
+                showThanks();
+                sendInBackground(body);
+            });
+
+            function onEntry(entry) {
+                entry.forEach(change => {
+                    if (change.isIntersecting) {
+                        change.target.classList.add("element-show");
+                    }
+                });
+            }
+            let options = {
+                threshold: [0.2],
+            };
+            let observer = new IntersectionObserver(onEntry, options);
+            let elements = document.querySelectorAll(".element-animation");
+
+            for (let elm of elements) {
+                observer.observe(elm);
+            }
+        </script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+            async
+        ></script>
+    </body>
+</html>
